@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		25F77BA0239943A90087C295 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77B9F239943A90087C295 /* AppDelegate.swift */; };
 		25F77BA2239943A90087C295 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BA1239943A90087C295 /* SceneDelegate.swift */; };
-		25F77BA4239943A90087C295 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BA3239943A90087C295 /* ViewController.swift */; };
+		25F77BA4239943A90087C295 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BA3239943A90087C295 /* FeedViewController.swift */; };
 		25F77BA7239943A90087C295 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25F77BA5239943A90087C295 /* Main.storyboard */; };
 		25F77BAA239943A90087C295 /* RSSTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BA8239943A90087C295 /* RSSTest.xcdatamodeld */; };
 		25F77BAC239943AD0087C295 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F77BAB239943AD0087C295 /* Assets.xcassets */; };
 		25F77BAF239943AD0087C295 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25F77BAD239943AD0087C295 /* LaunchScreen.storyboard */; };
 		25F77BBA239943AE0087C295 /* RSSTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BB9239943AE0087C295 /* RSSTestTests.swift */; };
 		25F77BC5239943AE0087C295 /* RSSTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BC4239943AE0087C295 /* RSSTestUITests.swift */; };
+		25F77BD3239944030087C295 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BD2239944030087C295 /* Data.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +40,7 @@
 		25F77B9C239943A90087C295 /* RSSTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25F77B9F239943A90087C295 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25F77BA1239943A90087C295 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		25F77BA3239943A90087C295 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		25F77BA3239943A90087C295 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		25F77BA6239943A90087C295 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		25F77BA9239943A90087C295 /* RSSTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RSSTest.xcdatamodel; sourceTree = "<group>"; };
 		25F77BAB239943AD0087C295 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +52,7 @@
 		25F77BC0239943AE0087C295 /* RSSTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25F77BC4239943AE0087C295 /* RSSTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSTestUITests.swift; sourceTree = "<group>"; };
 		25F77BC6239943AE0087C295 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25F77BD2239944030087C295 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +105,8 @@
 			children = (
 				25F77B9F239943A90087C295 /* AppDelegate.swift */,
 				25F77BA1239943A90087C295 /* SceneDelegate.swift */,
-				25F77BA3239943A90087C295 /* ViewController.swift */,
+				25F77BA3239943A90087C295 /* FeedViewController.swift */,
+				25F77BD2239944030087C295 /* Data.swift */,
 				25F77BA5239943A90087C295 /* Main.storyboard */,
 				25F77BAB239943AD0087C295 /* Assets.xcassets */,
 				25F77BAD239943AD0087C295 /* LaunchScreen.storyboard */,
@@ -263,7 +266,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				25F77BAA239943A90087C295 /* RSSTest.xcdatamodeld in Sources */,
-				25F77BA4239943A90087C295 /* ViewController.swift in Sources */,
+				25F77BD3239944030087C295 /* Data.swift in Sources */,
+				25F77BA4239943A90087C295 /* FeedViewController.swift in Sources */,
 				25F77BA0239943A90087C295 /* AppDelegate.swift in Sources */,
 				25F77BA2239943A90087C295 /* SceneDelegate.swift in Sources */,
 			);
@@ -441,6 +445,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9SR6C9RNX9;
 				INFOPLIST_FILE = RSSTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -459,6 +464,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9SR6C9RNX9;
 				INFOPLIST_FILE = RSSTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
