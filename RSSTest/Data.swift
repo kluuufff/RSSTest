@@ -6,7 +6,10 @@
 //  Copyright © 2019 Надежда Возна. All rights reserved.
 //
 
-import Foundation
+import CoreData
+
+var urlArray = [NSManagedObject]()
+var flag = false //for reload table after press add button
 
 struct Item {
     var title: String

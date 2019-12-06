@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class FeedViewController: UITableViewController {
     
@@ -37,6 +38,32 @@ class FeedViewController: UITableViewController {
             print("url error")
         }
     }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let item = items[indexPath.row]
+        
+        cell.textLabel?.text = item.title
+        cell.detailTextLabel?.text = item.pubDate
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    @IBAction func addSourceButton(_ sender: UIBarButtonItem) {
+        let str = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
+        let coredata = CoreData()
+        coredata.save(link: str)
+        flag = true
+//        print(urlArray[0].value(forKey: "urls") as? String ?? "fetch error")
+    }
+    
 
 }
 
@@ -72,6 +99,7 @@ extension FeedViewController: XMLParserDelegate {
                 itemLink += data
             case "pubDate":
                 itemDate += data
+                print("\(itemDate)")
             default:
                 print("elementName error")
             }
