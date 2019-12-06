@@ -15,4 +15,5 @@ struct Item {
     var title: String
     var link: String
     var pubDate: String
+    var description: String
 }

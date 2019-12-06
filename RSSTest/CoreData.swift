@@ -33,11 +33,20 @@ class CoreData {
         let fetch = NSFetchRequest<NSManagedObject>(entityName: "RSS")
         do {
             urlArray = try context.fetch(fetch)
-//            DispatchQueue.main.async {
-//                tableView.reloadData()
-//            }
         } catch {
             print("Error")
+        }
+    }
+    
+    func delete(object: Int) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = appDelegate.persistentContainer.viewContext
+        context.delete(urlArray[object])
+        urlArray.remove(at: object)
+        do {
+            try context.save()
+        } catch {
+            print("error when delete")
         }
     }
 }

@@ -16,6 +16,7 @@ class FeedViewController: UITableViewController {
     private var itemTitle = String()
     private var itemLink = String()
     private var itemDate = String()
+    private var itemDescription = String()
     private var elementName: String?
 
     override func viewDidLoad() {
@@ -55,8 +56,16 @@ class FeedViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let descriptionVC = self.storyboard?.instantiateViewController(withIdentifier: "DescriptionVC") as! DescriptionViewController
+        let item = items[indexPath.row]
+        descriptionVC.titleMore = item.title
+        descriptionVC.descriptionMore = item.description
+        self.navigationController?.pushViewController(descriptionVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
 
 //MARK: - RSS Parser
@@ -68,6 +77,7 @@ extension FeedViewController: XMLParserDelegate {
             itemTitle = String()
             itemLink = String()
             itemDate = String()
+            itemDescription = String()
         }
 
         self.elementName = elementName
@@ -75,7 +85,7 @@ extension FeedViewController: XMLParserDelegate {
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let item = Item(title: itemTitle, link: itemLink, pubDate: itemDate)
+            let item = Item(title: itemTitle, link: itemLink, pubDate: itemDate, description: itemDescription)
             items.append(item)
         }
     }
@@ -91,12 +101,13 @@ extension FeedViewController: XMLParserDelegate {
                 itemLink += data
             case "pubDate":
                 itemDate += data
-                print("\(itemDate)")
+            case "description":
+                itemDescription += data
             default:
                 print("elementName error")
             }
             #if DEBUG
-            print("\(items)")
+//            print("\(items)")
             #endif
         }
     }

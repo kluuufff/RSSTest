@@ -67,7 +67,7 @@ class SourceViewController: UITableViewController {
             if urlArray.count >= 1 {
                 cell.textLabel?.text = urlArray[indexPath.row].value(forKey: "urls") as? String
             } else {
-                cell.textLabel?.text = "..."
+                cell.textLabel?.text = "URLs Not found"
             }
         } else {
             cell.textLabel?.text = "Show All Feed"
@@ -79,24 +79,31 @@ class SourceViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let web = self.storyboard?.instantiateViewController(withIdentifier: "feedVC") as! FeedViewController
-        if indexPath.section == 0 {
+        if indexPath.section == 1 {
             self.navigationController?.pushViewController(web, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
-
-    /*
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if urlArray.count >= 1 {
+            return 44.0
+        } else {
+            return 0
+        }
+        
+    }
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        if indexPath.section == 1 {
+            if editingStyle == .delete {
+                coredata.delete(object: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
     }
-    */
+    
 
 }
 
