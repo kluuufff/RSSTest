@@ -56,14 +56,6 @@ class FeedViewController: UITableViewController {
         return 60
     }
     
-    @IBAction func addSourceButton(_ sender: UIBarButtonItem) {
-        let str = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
-        let coredata = CoreData()
-        coredata.save(link: str)
-        flag = true
-//        print(urlArray[0].value(forKey: "urls") as? String ?? "fetch error")
-    }
-    
 
 }
 

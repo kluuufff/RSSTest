@@ -33,9 +33,9 @@ class CoreData {
         let fetch = NSFetchRequest<NSManagedObject>(entityName: "RSS")
         do {
             urlArray = try context.fetch(fetch)
-            DispatchQueue.main.async {
-                tableView.reloadData()
-            }
+//            DispatchQueue.main.async {
+//                tableView.reloadData()
+//            }
         } catch {
             print("Error")
         }
