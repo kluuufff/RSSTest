@@ -17,13 +17,9 @@ class DescriptionViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.navigationBar.prefersLargeTitles = false
-        
         titleLabel.text = titleMore
         descriptionLabel.text = descriptionMore
-        
         tableView.rowHeight = UITableView.automaticDimension
     }
-
 }

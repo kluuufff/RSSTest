@@ -10,15 +10,12 @@ import UIKit
 import CoreData
 
 class CoreData {
-    
     func save(link: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
         guard let entity = NSEntityDescription.entity(forEntityName: "RSS", in: context) else { return }
-        
         let linkObject = NSManagedObject(entity: entity, insertInto: context)
         linkObject.setValue(link, forKey: "urls")
-        
         do {
             try context.save()
             urlArray.append(linkObject)

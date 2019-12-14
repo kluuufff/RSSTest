@@ -18,16 +18,20 @@ class FeedViewController: UITableViewController {
     private var itemDate = String()
     private var itemDescription = String()
     private var elementName: String?
-
+    private var fullURL: String?
+    private var scanner = Scanner()
+    public var source = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         rssResponse()
     }
     
     //RSS Response
     private func rssResponse() {
-        if let url = URL(string: "http://images.apple.com/main/rss/hotnews/hotnews.rss") {
+//        if let url = URL(string: "http://images.apple.com/main/rss/hotnews/hotnews.rss") {
+        
+        if let url = URL(string: source) {
             if let parser = XMLParser(contentsOf: url) {
                 parser.delegate = self
                 parser.parse()
@@ -89,7 +93,7 @@ extension FeedViewController: XMLParserDelegate {
             items.append(item)
         }
     }
-
+    
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 

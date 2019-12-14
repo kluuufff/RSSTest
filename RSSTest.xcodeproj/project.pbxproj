@@ -20,6 +20,7 @@
 		25F77BD5239A98F60087C295 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BD4239A98F60087C295 /* SourceViewController.swift */; };
 		25F77BD7239AA3E20087C295 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BD6239AA3E20087C295 /* CoreData.swift */; };
 		25F77BDB239AD67B0087C295 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BDA239AD67B0087C295 /* DescriptionViewController.swift */; };
+		25F77BDF239B01400087C295 /* NewSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F77BDE239B01400087C295 /* NewSourceViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		25F77BD4239A98F60087C295 /* SourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		25F77BD6239AA3E20087C295 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		25F77BDA239AD67B0087C295 /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
+		25F77BDE239B01400087C295 /* NewSourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSourceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,8 +113,9 @@
 			children = (
 				25F77B9F239943A90087C295 /* AppDelegate.swift */,
 				25F77BA1239943A90087C295 /* SceneDelegate.swift */,
-				25F77BA3239943A90087C295 /* FeedViewController.swift */,
 				25F77BD4239A98F60087C295 /* SourceViewController.swift */,
+				25F77BDE239B01400087C295 /* NewSourceViewController.swift */,
+				25F77BA3239943A90087C295 /* FeedViewController.swift */,
 				25F77BDA239AD67B0087C295 /* DescriptionViewController.swift */,
 				25F77BD2239944030087C295 /* Data.swift */,
 				25F77BD6239AA3E20087C295 /* CoreData.swift */,
@@ -276,6 +279,7 @@
 			files = (
 				25F77BAA239943A90087C295 /* RSSTest.xcdatamodeld in Sources */,
 				25F77BD3239944030087C295 /* Data.swift in Sources */,
+				25F77BDF239B01400087C295 /* NewSourceViewController.swift in Sources */,
 				25F77BA4239943A90087C295 /* FeedViewController.swift in Sources */,
 				25F77BA0239943A90087C295 /* AppDelegate.swift in Sources */,
 				25F77BD7239AA3E20087C295 /* CoreData.swift in Sources */,
