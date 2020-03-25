@@ -15,10 +15,11 @@ class NewSourceViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        urlField.becomeFirstResponder()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        coredata.save(link: urlField.text ?? "http://images.apple.com/main/rss/hotnews/hotnews.rss")
+        coredata.save(link: urlField.text!)
         coredata.fetch(tableView: tableView)
     }
 }

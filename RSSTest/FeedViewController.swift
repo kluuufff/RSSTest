@@ -29,19 +29,33 @@ class FeedViewController: UITableViewController {
     
     //RSS Response
     private func rssResponse() {
-//        if let url = URL(string: "http://images.apple.com/main/rss/hotnews/hotnews.rss") {
+        //        if let url = URL(string: "http://images.apple.com/main/rss/hotnews/hotnews.rss") {
         
-        if let url = URL(string: source) {
+        guard let url = URL(string: source) else { return }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            
+            if error != nil || data == nil {
+                print("Client error! \(String(describing: error))")
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
             if let parser = XMLParser(contentsOf: url) {
                 parser.delegate = self
                 parser.parse()
-                print("success to parse")
+                // print("success to parse")
             } else {
                 print("failed to parse")
             }
-        } else {
-            print("url error")
+            print("error shared: \(String(describing: error))")
+            
         }
+        
+        task.resume()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,22 +83,45 @@ class FeedViewController: UITableViewController {
         self.navigationController?.pushViewController(descriptionVC, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }
 
 //MARK: - RSS Parser
 
 extension FeedViewController: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-
+//        print("did start")
         if elementName == "item" {
             itemTitle = String()
             itemLink = String()
             itemDate = String()
             itemDescription = String()
         }
-
         self.elementName = elementName
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+            let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if (!data.isEmpty) {
+                switch elementName {
+                case "title":
+                    itemTitle += data
+                case "link":
+                    itemLink += data
+                case "pubDate":
+                    itemDate += data
+                case "description":
+                    itemDescription += data
+                default:
+                    print("elementName error")
+                }
+                #if DEBUG
+    //            print("\(items)")
+                #endif
+            }
+        }
+    
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        print("failure error: ", parseError)
     }
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
@@ -93,31 +130,4 @@ extension FeedViewController: XMLParserDelegate {
             items.append(item)
         }
     }
-    
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-        let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-
-        if (!data.isEmpty) {
-            switch elementName {
-            case "title":
-                itemTitle += data
-            case "link":
-                itemLink += data
-            case "pubDate":
-                itemDate += data
-            case "description":
-                itemDescription += data
-            default:
-                print("elementName error")
-            }
-            #if DEBUG
-//            print("\(items)")
-            #endif
-        }
-    }
-    
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        print("failure error: ", parseError)
-    }
-    
 }
