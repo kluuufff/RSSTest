@@ -89,7 +89,7 @@ class SourceViewController: UITableViewController {
         return cell
     }
     
-    private func getRSSLink(myURL: String) -> String {
+    private func getRSSLink(myURL: String, url: String, fail: Bool = false) -> String {
         var strFull = String()
         var strShort = String()
         var finalString = String()
@@ -106,7 +106,7 @@ class SourceViewController: UITableViewController {
                     strShort = String(hashtagWord)
                     print(strShort)
                     if
-                        let firstWord = strShort.range(of: "href=\""),
+                        let firstWord = strShort.range(of: "href="),
                         let lastWord = strShort.range(of: ">", range: firstWord.lowerBound..<strShort.endIndex)
                     {
                         let finalStr = strShort[firstWord.upperBound..<lastWord.upperBound]
@@ -114,15 +114,24 @@ class SourceViewController: UITableViewController {
                         var result = finalString.components(separatedBy: "\"")
                         print(finalString)
                         print(result[0])
-                        if !result[0].contains("http://") {
-                            if !result[0].contains("https://") {
-                                result[0] = myURL + "/feed/"
-                            }
+                        
+                        if fail {
+                            let replace = result[0].replacingOccurrences(of: "https", with: "http")
+                            print("replace \(replace)")
+                            return replace
+                        }
+                        
+                        if result[0].contains("http://") || result[0].contains("https://") {
+                            print("result[0] \(result[0])")
+                            return result[0]
+                        } else {
+                            result[0] = myURL + "/feed/"
                         }
 //                        if !result[0].contains("https") {
 //                            let resultStr = "http://" + result[0]
 //                            return resultStr
 //                        }
+                        print("result[0] \(result[0])")
                         return result[0]
                     }
                 }
@@ -137,17 +146,26 @@ class SourceViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let feed = self.storyboard?.instantiateViewController(withIdentifier: "feedVC") as! FeedViewController
-//        if indexPath.section == 0 {
-//
-//        }
+        //        if indexPath.section == 0 {
+        //
+        //        }
         if indexPath.section == 1 {
             guard let index = tableView.indexPathForSelectedRow else { return }
             guard let currentCell = tableView.cellForRow(at: index) else { return }
+            let result = getRSSLink(myURL: "https://" + currentCell.textLabel!.text!, url: currentCell.textLabel!.text!, fail: false)
             if currentCell.textLabel!.text! != "" {
-                if !currentCell.textLabel!.text!.contains("https://") {
-                    feed.source = getRSSLink(myURL: "https://" + currentCell.textLabel!.text!)
-//                    feed.source = "https://" + currentCell.textLabel!.text! + "/feed/"
+                print("result__ \(result)")
+                if result == "error" {
+                    feed.source = getRSSLink(myURL: "https://" + currentCell.textLabel!.text!, url: currentCell.textLabel!.text!, fail: true)
+                    print("feed.source: \(feed.source)")
+                } else {
+                    feed.source = getRSSLink(myURL: "https://" + currentCell.textLabel!.text!, url: currentCell.textLabel!.text!, fail: false)
+                    print("feed.source: \(feed.source)")
                 }
+//                if !currentCell.textLabel!.text!.contains("https://") {
+                
+//                    feed.source = "https://" + currentCell.textLabel!.text! + "/feed/"
+//                }
             }
             self.navigationController?.pushViewController(feed, animated: true)
         }

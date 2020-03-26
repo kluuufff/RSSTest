@@ -32,30 +32,13 @@ class FeedViewController: UITableViewController {
         //        if let url = URL(string: "http://images.apple.com/main/rss/hotnews/hotnews.rss") {
         
         guard let url = URL(string: source) else { return }
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            
-            if error != nil || data == nil {
-                print("Client error! \(String(describing: error))")
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                print("Server error!")
-                return
-            }
-            
-            if let parser = XMLParser(contentsOf: url) {
-                parser.delegate = self
-                parser.parse()
-                // print("success to parse")
-            } else {
-                print("failed to parse")
-            }
-            print("error shared: \(String(describing: error))")
-            
+        if let parser = XMLParser(contentsOf: url) {
+            parser.delegate = self
+            parser.parse()
+            // print("success to parse")
+        } else {
+            print("failed to parse")
         }
-        
-        task.resume()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
