@@ -28,16 +28,14 @@ class FeedViewController: UITableViewController {
     }
     
     //RSS Response
-    private func rssResponse() {
-        //        if let url = URL(string: "http://images.apple.com/main/rss/hotnews/hotnews.rss") {
-        
-        guard let url = URL(string: source) else { return }
-        if let parser = XMLParser(contentsOf: url) {
-            parser.delegate = self
-            parser.parse()
-            // print("success to parse")
-        } else {
-            print("failed to parse")
+    public func rssResponse() {
+        if let url = URL(string: source) {
+            if let parser = XMLParser(contentsOf: url) {
+                parser.delegate = self
+                parser.parse()
+            } else {
+                print("failed to parse")
+            }
         }
     }
     
@@ -48,7 +46,6 @@ class FeedViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let item = items[indexPath.row]
-        
         cell.textLabel?.text = item.title
         cell.detailTextLabel?.text = item.pubDate
         return cell
@@ -93,13 +90,27 @@ extension FeedViewController: XMLParserDelegate {
                 case "pubDate":
                     itemDate += data
                 case "description":
-                    itemDescription += data
+                    
+                    let str = data.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+//                    do {
+//                        let img = try NSRegularExpression(pattern: "(<img\\s[\\s\\S]*?src\\s*?=\\s*?['\"](.*?)['\"][\\s\\S]*?>)+?", options: .caseInsensitive)
+//                        let matches = img.matches(in: itemDescription, options: [], range: NSRange(location: 0, length: itemDescription.utf16.count))
+//
+//                        if let match = matches.first {
+//                            let range = match.range(at:1)
+//                            if let swiftRange = Range(range, in: itemDescription) {
+//                                let name = itemDescription[swiftRange]
+//                                print("name \(name)")
+//                            }
+//                        }
+//                    } catch {
+//                        print("error")
+//                    }
+                    
+                    itemDescription += str
                 default:
-                    print("elementName error")
+                    print("news")
                 }
-                #if DEBUG
-    //            print("\(items)")
-                #endif
             }
         }
     
@@ -112,5 +123,22 @@ extension FeedViewController: XMLParserDelegate {
             let item = Item(title: itemTitle, link: itemLink, pubDate: itemDate, description: itemDescription)
             items.append(item)
         }
+    }
+}
+
+extension String {
+    func ranges(of string: String, options: CompareOptions = .literal) -> [Range<Index>] {
+        var result: [Range<Index>] = []
+        var start = startIndex
+        while let range = range(of: string, options: options, range: start..<endIndex) {
+            result.append(range)
+            start = range.lowerBound < range.upperBound ? range.upperBound : index(range.lowerBound, offsetBy: 1, limitedBy: endIndex) ?? endIndex
+        }
+        return result
+    }
+    func slices(from: String, to: String) -> [Substring] {
+        let pattern = "(?<=" + from + ").*?(?=" + to + ")"
+        return ranges(of: pattern, options: .regularExpression)
+            .map{ self[$0] }
     }
 }
