@@ -97,7 +97,6 @@ class SourceViewController: UITableViewController {
             do {
                 let contents = try String(contentsOf: url, encoding: .ascii)
                 strFull = contents
-//                print(contents)
                 if
                     let hashtag = strFull.range(of: "rss+xml"),
                     let word = strFull.range(of: ">", range: hashtag.upperBound..<strFull.endIndex)
@@ -115,8 +114,8 @@ class SourceViewController: UITableViewController {
                         print(finalString)
                         print(result[0])
                         
-                        if fail {
-                            let replace = result[0].replacingOccurrences(of: "https", with: "http")
+                        if !fail {
+                            let replace = result[0].replacingOccurrences(of: "http", with: "https")
                             print("replace \(replace)")
                             return replace
                         }
@@ -127,10 +126,6 @@ class SourceViewController: UITableViewController {
                         } else {
                             result[0] = myURL + "/feed/"
                         }
-//                        if !result[0].contains("https") {
-//                            let resultStr = "http://" + result[0]
-//                            return resultStr
-//                        }
                         print("result[0] \(result[0])")
                         return result[0]
                     }
@@ -146,9 +141,9 @@ class SourceViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let feed = self.storyboard?.instantiateViewController(withIdentifier: "feedVC") as! FeedViewController
-        //        if indexPath.section == 0 {
-        //
-        //        }
+                if indexPath.section == 0 {
+        
+                }
         if indexPath.section == 1 {
             guard let index = tableView.indexPathForSelectedRow else { return }
             guard let currentCell = tableView.cellForRow(at: index) else { return }
@@ -162,11 +157,9 @@ class SourceViewController: UITableViewController {
                     feed.source = getRSSLink(myURL: "https://" + currentCell.textLabel!.text!, url: currentCell.textLabel!.text!, fail: false)
                     print("feed.source: \(feed.source)")
                 }
-//                if !currentCell.textLabel!.text!.contains("https://") {
-                
-//                    feed.source = "https://" + currentCell.textLabel!.text! + "/feed/"
-//                }
             }
+        
+        
             self.navigationController?.pushViewController(feed, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: true)
