@@ -92,6 +92,32 @@ extension FeedViewController: XMLParserDelegate {
                 case "description":
                     
                     let str = data.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+                    let str2 = str.replacingOccurrences(of: "&[^;]+;", with: "", options: .regularExpression, range: nil)
+//                    var str2 = String()
+//                    if
+//                        let hashtag = str.range(of: "&"),
+//                        let word = str.range(of: " ", range: hashtag.upperBound..<str.endIndex)
+//                    {
+//                        let hashtagWord = str[hashtag.upperBound..<word.upperBound]
+//                        str2 = String(hashtagWord)
+//                        if let range = str.range(of: str2) {
+//                           str.removeSubrange(range)
+//                        }
+////                        print(str2)
+//                    } else {
+//                        if
+//                            let hashtag = str.range(of: "more"),
+//                            let word = str.range(of: " ", range: hashtag.upperBound..<str.endIndex)
+//                        {
+//                            let hashtagWord = str[hashtag.upperBound..<word.upperBound]
+//                            str2 = String(hashtagWord)
+//                            if let range = str.range(of: str2) {
+//                               str.removeSubrange(range)
+//                            }
+////                            print(str2)
+//                        }
+//                    }
+                    
 //                    do {
 //                        let img = try NSRegularExpression(pattern: "(<img\\s[\\s\\S]*?src\\s*?=\\s*?['\"](.*?)['\"][\\s\\S]*?>)+?", options: .caseInsensitive)
 //                        let matches = img.matches(in: itemDescription, options: [], range: NSRange(location: 0, length: itemDescription.utf16.count))
@@ -107,7 +133,8 @@ extension FeedViewController: XMLParserDelegate {
 //                        print("error")
 //                    }
                     
-                    itemDescription += str
+                    itemDescription += str2
+//                    print("\(str)")
                 default:
                     print("news")
                 }
